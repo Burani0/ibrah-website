@@ -1,6 +1,13 @@
 import React from 'react';
 
-const projects = [
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+}
+
+const projects: Project[] = [
   {
     title: "Urban Bridge Renovation",
     description: "Led the structural analysis and renovation of a century-old bridge, implementing modern safety standards while preserving historical elements.",
@@ -21,27 +28,31 @@ const projects = [
   }
 ];
 
-const Projects = () => {
+const ProjectCard: React.FC<Project> = ({ title, description, image, category }) => {
   return (
-    <section id="projects" className="py-16 bg-white">
-      <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center mb-12">Featured Projects</h2>
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+      <img 
+        src={image} 
+        alt={title} 
+        className="w-full h-48 object-cover"
+      />
+      <div className="p-6">
+        <div className="text-sm text-blue-600 font-semibold mb-2">{category}</div>
+        <h3 className="text-xl font-bold mb-2">{title}</h3>
+        <p className="text-gray-600">{description}</p>
+      </div>
+    </div>
+  );
+};
+
+const Projects: React.FC = () => {
+  return (
+    <section className="py-16 bg-gray-50" id="projects">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-12">Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img 
-                src={project.image} 
-                alt={project.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <span className="text-sm text-blue-600 font-semibold">
-                  {project.category}
-                </span>
-                <h3 className="text-xl font-bold mt-2 mb-3">{project.title}</h3>
-                <p className="text-gray-600">{project.description}</p>
-              </div>
-            </div>
+            <ProjectCard key={index} {...project} />
           ))}
         </div>
       </div>

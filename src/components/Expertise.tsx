@@ -1,41 +1,47 @@
 import React from 'react';
 
-// Replace these with the actual paths to your images
-const expertiseAreas = [
+interface ExpertiseItem {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+const expertiseItems: ExpertiseItem[] = [
   {
-    image: "./images/image1.png", // Image path for Structural Engineering
     title: "Structural Engineering",
-    description: "Specialized in designing and analyzing complex structural systems for commercial and residential buildings."
+    description: "Specialized in designing and analyzing complex structural systems for buildings and infrastructure.",
+    icon: "🏗️"
   },
   {
-    image: "/path/to/infrastructure-design-image.png", // Image path for Infrastructure Design
-    title: "Infrastructure Design",
-    description: "Expert in bridge design, highway systems, and urban infrastructure development."
-  },
-  {
-    image: "/path/to/safety-compliance-image.png", // Image path for Safety Compliance
-    title: "Safety Compliance",
-    description: "Ensuring all projects meet or exceed safety standards and building codes."
-  },
-  {
-    image: "/path/to/sustainable-design-image.png", // Image path for Sustainable Design
     title: "Sustainable Design",
-    description: "Implementing eco-friendly solutions and sustainable engineering practices."
+    description: "Expert in implementing eco-friendly solutions and LEED certification requirements.",
+    icon: "🌱"
+  },
+  {
+    title: "Project Management",
+    description: "Experienced in leading multi-disciplinary teams and managing large-scale construction projects.",
+    icon: "📊"
   }
 ];
 
-const Expertise = () => {
+const ExpertiseCard: React.FC<ExpertiseItem> = ({ title, description, icon }) => {
   return (
-    <section id="expertise" className="py-16 bg-gray-50">
-      <div className="container mx-auto px-6">
+    <div className="bg-white p-6 rounded-lg shadow-lg">
+      <div className="text-4xl mb-4">{icon}</div>
+      <h3 className="text-xl font-bold mb-2">{title}</h3>
+      <p className="text-gray-600">{description}</p>
+    </div>
+  );
+};
+
+const Expertise: React.FC = () => {
+  return (
+    <section className="py-16" id="expertise">
+      <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12">Areas of Expertise</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {expertiseAreas.map((area, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-              <img src={area.image} alt={area.title} className="h-12 w-12 mb-4" />
-              <h3 className="text-xl font-bold mb-3">{area.title}</h3>
-              <p className="text-gray-600">{area.description}</p>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {expertiseItems.map((item, index) => (
+            <ExpertiseCard key={index} {...item} />
           ))}
         </div>
       </div>
